@@ -19,6 +19,10 @@ bin/Debug/net8.8/
 appsettings.Development.json
 appsettings.Local.json
 secrets.json
+appsettings.json
+uke1.csproj
+uke1.sln
+
 
 # Oppstartskonfig (valgfritt å ignorere)
 launchSettings.json
