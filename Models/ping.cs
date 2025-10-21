@@ -5,7 +5,7 @@
 
 
 
-namespace Models.Ping
+namespace Models
 {
     public class Ping
     {
