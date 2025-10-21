@@ -1,13 +1,20 @@
 
 
-namespace Models.Message
+namespace Models;
+
+
+public class Message
 {
-    
-    public class Messag
+    public int Id { get; set; }
+
+    public string Text { get; set; } = "";
+
+
+    public Message() { }
+
+    public Message(int id, string text)
     {
-       public int Id { get; set; }
-
-        public string text { get; set; } = "";
+        Id = id;
+        Text = text;
     }
-
 }
