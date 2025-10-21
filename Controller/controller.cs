@@ -1,16 +1,17 @@
 
 
 
-// https://learn.microsoft.com/en-us/aspnet/core/tutorials/first-web-api?view=aspnetcore-9.0&tabs=visual-studio
+//  https://learn.microsoft.com/en-us/aspnet/core/tutorials/first-web-api?view=aspnetcore-9.0&tabs=visual-studio
 
 
 
-//using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Models.Ping;
+using Models;
 
-namespace Controller
-{
+
+namespace Controller;
+
+
     [Route("api/[controller]")]
     [ApiController]
     public class PingController : ControllerBase
@@ -46,6 +47,86 @@ namespace Controller
             return Ok(localDate);
 
         }
+
     }
+
+
+    //----------------------------------//
+
+
+
+    [Route("api/[controller]")]
+    [ApiController]
+    public class MessagesController : ControllerBase
+    {      private static readonly List<Message> _messages = new()
+        {
+            new Message(1, "Hei"),
+            new Message(2, "Hade")
+        };
+
+        private static int _nextId = 3;
+          
+
+        [HttpGet]
+        public ActionResult<Message> getMessags() => Ok( _messages);
+
+
+
+
+    [HttpGet("{Id}")]
+
+
+    public ActionResult<Message> getMessagById(int Id)
+    {
+        var message = _messages.FirstOrDefault(m => m.Id == Id);
+
+        if (message == null)
+        {
+
+            return NotFound();
+        }
+            return Ok(message);
 }
+
+
+    [HttpPost]
+    public ActionResult<Message> CreateMessage(Message input)
+    {
+        // Gi meldingen et nytt id
+        input.Id = _nextId++;
+
+        // Legg den til i lista
+        _messages.Add(input);
+
+        return Created($"api/messages/{input.Id}", input);
+
+    }
+
+        [HttpDelete("{Id:int}")]
+        public ActionResult<Message> deletById(int Id)
+        {
+              var message = _messages.FirstOrDefault(m => m.Id == Id);
+
+        if (message == null)
+        {
+            return NotFound();
+        }
+             
+         _messages.Remove(message);
+
+            return NoContent();
+        }
+
+    };
+
+
+
+
+
+
+
+
+
+
+
 
